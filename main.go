@@ -4,17 +4,24 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/mattn/go-mastodon"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("failed to load .env: %v", err)
+	}
+
 	c := mastodon.NewClient(&mastodon.Config{
 		Server:       "https://mstdn.jp",
-		ClientID:     "CLIENT_ID",
-		ClientSecret: "CLIENT_SECRET",
+		ClientID:     os.Getenv("MSTDN_CLIENT_ID"),
+		ClientSecret: os.Getenv("MSTDN_CLIENT_SECRET"),
 	})
-	err := c.Authenticate(context.Background(), "email", "pass")
+	err = c.Authenticate(context.Background(), os.Getenv("MSTDN_USER_EMAIL"), os.Getenv("MSTDN_USER_PASSWORD"))
 	if err != nil {
 		log.Fatal(err)
 	}
