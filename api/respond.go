@@ -16,6 +16,7 @@ func encodeBody(w http.ResponseWriter, r *http.Request, v interface{}) error {
 }
 
 func respond(w http.ResponseWriter, r *http.Request, status int, data interface{}) {
+	fmt.Println(w.Header())
 	w.WriteHeader(status)
 	if data != nil {
 		encodeBody(w, r, data)

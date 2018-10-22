@@ -67,7 +67,6 @@ func hanldePollsPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Location", "polls/"+p.ID.Hex())
-	respond(w, r, http.StatusCreated, nil)
 }
 
 func handlePollsDelete(w http.ResponseWriter, r *http.Request) {
